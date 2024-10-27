@@ -8,9 +8,7 @@ threshold_percentage = 50
 included_processes = ['msedge.exe']  # List of process names to include
 log_file = "log.txt"
 start_time = time.time()
-send_log_after_minutes = 60
-telegram_bot_token = '7036285968:AAHVNjiq_TDE3BUQPQNiZF47EqIazN4pClw'
-chat_id = '1138482440'
+
 
 def log_cpu_usage():
     with open(log_file, "a") as f:
@@ -20,12 +18,6 @@ def log_cpu_usage():
             if cpu_percent > threshold_percentage and process_name not in ['System Idle Process', 'python.exe']:
                 f.write(f"{process_name} : {cpu_percent}%\n")
         # Log once after checking all processes
-
-def send_log():
-    url = f"https://api.telegram.org/bot{telegram_bot_token}/sendDocument"
-    files = {'document': open(log_file, 'rb')}
-    data = {'chat_id': chat_id}
-    response = requests.post(url, files=files, data=data)
 
 def main():
     start_time = time.time()  # Reset start time at the beginning of each loop iteration
